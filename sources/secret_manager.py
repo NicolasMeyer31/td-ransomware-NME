@@ -38,6 +38,7 @@ class SecretManager:
 
 
     def do_derivation(self, salt: bytes, key: bytes) -> bytes:
+        #dérive la clef à partir d'une clef et d'un salt
         clef = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=KEY_LENGTH,
