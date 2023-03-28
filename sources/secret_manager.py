@@ -9,14 +9,16 @@ import base64
 
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.backends import default_backend
 
 from xorcrypt import xorfile
+ITERATION = 48000
+TOKEN_LENGTH = 16
+SALT_LENGTH = 16
+KEY_LENGTH = 16
 
 class SecretManager:
-    ITERATION = 48000
-    TOKEN_LENGTH = 16
-    SALT_LENGTH = 16
-    KEY_LENGTH = 16
+
 
     def __init__(self, remote_host_port:str="127.0.0.1:6666", path:str="/root") -> None:
         self._remote_host_port = remote_host_port
@@ -27,9 +29,19 @@ class SecretManager:
 
         self._log = logging.getLogger(self.__class__.__name__)
 
-    def do_derivation(self, salt:bytes, key:bytes)->bytes:
-        raise NotImplemented()
 
+    def do_derivation(self, salt:bytes, key:bytes)->bytes:
+        # Derive a key from the salt and key using PBKDF2 with SHA-256
+        #dérivation de la clé
+        self.key = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=KEY_LENGTH,
+            salt="Saucisson".encode(),
+            iterations=ITERATION,
+            backend=default_backend()
+        )
+
+        return key
 
     def create(self)->Tuple[bytes, bytes, bytes]:
         raise NotImplemented()
