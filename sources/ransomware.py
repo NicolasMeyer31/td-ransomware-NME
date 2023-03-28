@@ -10,6 +10,7 @@ CNC_ADDRESS = "cnc:6666"
 TOKEN_PATH = "/root/token"
 
 ENCRYPT_MESSAGE = """
+
   _____                                                                                           
  |  __ \                                                                                          
  | |__) | __ ___ _ __   __ _ _ __ ___   _   _  ___  _   _ _ __   _ __ ___   ___  _ __   ___ _   _ 
