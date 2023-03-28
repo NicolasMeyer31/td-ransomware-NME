@@ -30,19 +30,21 @@ class SecretManager:
 
 
     def create(self)->Tuple[bytes, bytes, bytes]:
-        # Generate a random salt, key and token
+        # Génère un salt et une clef aléatoire
         salt = secrets.token_bytes(SALT_LENGTH)
         key = secrets.token_bytes(KEY_LENGTH)
 
-
         raise self.salt, self.key
 
+
     def do_derivation(self, salt: bytes, key: bytes) -> bytes:
-
-        return
-
-
-
+        clef = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=KEY_LENGTH,
+            salt=salt,
+            iterations=ITERATION,
+        )
+        return clef.derive(key)
 
 
     def bin_to_b64(self, data:bytes)->str:
