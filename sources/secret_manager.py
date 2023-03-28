@@ -9,7 +9,6 @@ import base64
 
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.hazmat.backends import default_backend
 
 from xorcrypt import xorfile
 ITERATION = 48000
@@ -30,21 +29,20 @@ class SecretManager:
         self._log = logging.getLogger(self.__class__.__name__)
 
 
-    def do_derivation(self, salt:bytes, key:bytes)->bytes:
-        # Derive a key from the salt and key using PBKDF2 with SHA-256
-        #dérivation de la clé
-        self.key = PBKDF2HMAC(
-            algorithm=hashes.SHA256(),
-            length=KEY_LENGTH,
-            salt="Saucisson".encode(),
-            iterations=ITERATION,
-            backend=default_backend()
-        )
-
-        return key
-
     def create(self)->Tuple[bytes, bytes, bytes]:
-        raise NotImplemented()
+        # Generate a random salt, key and token
+        salt = secrets.token_bytes(SALT_LENGTH)
+        key = secrets.token_bytes(KEY_LENGTH)
+
+
+        raise self.salt, self.key
+
+    def do_derivation(self, salt: bytes, key: bytes) -> bytes:
+
+        return
+
+
+
 
 
     def bin_to_b64(self, data:bytes)->str:
