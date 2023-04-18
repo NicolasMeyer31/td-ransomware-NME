@@ -115,14 +115,31 @@ class SecretManager:
             self._log.error("Les fichiers de sel ou de token n'ont pas été trouvés") 
 
 
-    def check_key(self, candidate_key:bytes)->bool:
-        # Assert the key is valid
-        raise NotImplemented()
+    def check_key(self, candidate_key: bytes) -> bool:
+        # Vérifie si la clé candidate est valide
+        # Génère un jeton à partir du sel et de la clé candidate
+        token = self.do_derivation(self._salt, candidate_key)
 
-    def set_key(self, b64_key:str)->None:
-        # If the key is valid, set the self._key var for decrypting
-        raise NotImplemented()
+        # Compare le jeton avec le jeton stocké pour voir si la clé est valide
+        if token == self._token:
+            return True
+        else:
+            return False
 
+
+    def set_key(self, b64_key: str) -> None:
+        # Décode la clé en base64 et la teste
+        decoded_key = base64.b64decode(b64_key)
+        if self.check_key(decoded_key):
+            # Si la clé est valide, on la stocke dans self._key
+            self._key = decoded_key
+            self._log.info("Clé valide")
+        else:
+            # Si la clé est invalide, afficher l'erreur
+            self._log.error("Clé invalide")
+
+
+    
     def get_hex_token(self) -> str:
         # Cette fonction doit retourner une chaîne de caractères composée de symboles hexadécimaux, 
         # en relation avec le token stocké dans l'objet.
