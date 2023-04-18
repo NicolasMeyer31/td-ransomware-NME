@@ -15,3 +15,7 @@ L'utilisation d'un HMAC nécessite la gestion de la clé secrète supplémentair
 
 Il est préférable de vérifier qu'un fichier token.bin n'est pas déjà présent pour éviter d'écraser un token existant. Si ce dernier est écrasé, cela pourrait entraîner des problèmes de sécurité et d’authentification. 
 De plus, si le fichier token.bin existe déjà, cela signifie que les éléments cryptographiques ont déjà été générés et enregistrés localement, et qu'ils ont probablement déjà été envoyés au CNC. 
+
+## Question 4
+
+Afin de valider une clé 'valide', il est possible de dériver une clé à partir du sel et de la clé proposée. En comparant la clé dérivée ainsi obtenue avec le token stocké dans self._token, on peut vérifier si la clé  est correcte. Si les deux valeurs correspondent, cela indique que la clé est valide et peut être utilisée pour décrypter les données.
