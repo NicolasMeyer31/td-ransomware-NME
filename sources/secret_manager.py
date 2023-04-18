@@ -95,9 +95,25 @@ class SecretManager:
 
 
 
-    def load(self)->None:
-        # function to load crypto data
-        raise NotImplemented()
+    def load(self) -> None:
+        # Fonction pour charger les données cryptographiques
+        # Chemins des fichiers de sel et de token
+        salt_path = os.path.join(self._path, "salt.bin")
+        token_path = os.path.join(self._path, "token.bin")
+
+        # Vérifie l'existence des fichiers de sel et de token
+        if os.path.exists(salt_path) and os.path.exists(token_path):
+            # Charge les données de sel et de token
+            with open(salt_path, "rb") as salt_f:
+                self._salt = salt_f.read()
+            with open(token_path, "rb") as token_f:
+                self._token = token_f.read()
+            # Affiche un message de confirmation
+            self._log.info("Les données de sel et de token ont été chargées à partir des fichiers locaux")
+        else:
+            # Affiche un message d'erreur si les fichiers de sel et de token n'existent pas
+            self._log.error("Les fichiers de sel ou de token n'ont pas été trouvés") 
+
 
     def check_key(self, candidate_key:bytes)->bool:
         # Assert the key is valid
