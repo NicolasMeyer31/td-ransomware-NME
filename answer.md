@@ -13,7 +13,7 @@ L'utilisation d'un HMAC nécessite la gestion de la clé secrète supplémentair
 
 ## Question 3
 
-Il est préférable de vérifier qu'un fichier token.bin n'est pas déjà présent pour éviter d'écraser un token existant. Si ce dernier est écrasé, cela pourrait entraîner des problèmes de sécurité et d’authentification. 
+Il est préférable de vérifier qu'un fichier token.bin n'est pas déjà présent pour éviter d'écraser un token existant. Si ce dernier est écrasé, cela pourrait entraîner des problèmes de sécurité.
 De plus, si le fichier token.bin existe déjà, cela signifie que les éléments cryptographiques ont déjà été générés et enregistrés localement, et qu'ils ont probablement déjà été envoyés au CNC. 
 
 ## Question 4
