@@ -23,7 +23,7 @@
     :virtuelle afin d'éviter d'endommager ou de perdre l'entiéreter de vos fichiers.:
     :                                                                               :
     : Je ne suis en aucun cas responsable si vous n'utilisez pas à bien ce document :
-    :        (s'il est possible de l'utilser à bien evidement ...).                 :
+    :        (s'il est possible de l'utiliser à bien evidement ...).                :
     :...............................................................................:
                             ⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⣽⣿⡏⠁⠀⠀⢸⣿⡇⠀⠀⠀
                     ⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⢹⣿⡆⠀⠀⠀⣸⣿⠇⠀⠀⠀
