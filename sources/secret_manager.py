@@ -107,9 +107,13 @@ class SecretManager:
         # If the key is valid, set the self._key var for decrypting
         raise NotImplemented()
 
-    def get_hex_token(self)->str:
-        # Should return a string composed of hex symbole, regarding the token
-        raise NotImplemented()
+    def get_hex_token(self) -> str:
+        # Cette fonction doit retourner une chaîne de caractères composée de symboles hexadécimaux, 
+        # en relation avec le token stocké dans l'objet.
+    
+        # Hache le token stocké en sha256 et convertit le résultat en une chaîne de caractères hexadécimaux
+        hashed_token = sha256(self._token).hexdigest()
+        return hashed_token
 
     def xorfiles(self, files:List[str])->None:
         # xor a list for file
